@@ -1,10 +1,13 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-    <div class="row">
-        <div clas="col-11 col-md-4 mx-auto mt-5">
-            <h1>You have been looged out!</h1>
-            <a href="{% url 'login' }">Login again</a> 
-        </div>
-    </div>
+	<div class="row">
+		<div class="col-11 col-md-6 mx-auto mt-5">
+			<h1>You have successfully logged out.</h1>
+			<div class="border-top pt-3">
+				<small class="text-muted">
+					<a href="{% url 'login' %}">Log in again</a>
+				</small>
+			</div>
+	</div>
 {% endblock content %}

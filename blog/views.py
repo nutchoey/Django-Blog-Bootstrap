@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.views import View
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, DeleteView
 from .models import Article
-
+from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 
 class Index(ListView):
@@ -11,7 +12,7 @@ class Index(ListView):
     template_name = 'blog/index.html'
     paginate_by = 3
 
-class ArticleDetailView(DetailView):
+class ArticleDetailView(LoginRequiredMixin,DetailView):
     model = Article
     template_name = 'blog/post_detail.html'
 
@@ -32,3 +33,15 @@ class LikeArticle(View):
             article.likes.add(request.user.id)
         article.save()
         return redirect('post_detail', pk)
+    
+class DeleteArticleView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Article
+    success_url = reverse_lazy('bloglist')
+    template_name = 'blog/post_delete.html'
+
+    def test_func(self):
+        article = Article.objects.get(id=self.kwargs.get('pk'))
+        return self.request.user.id == article.author.id
+
+  
+    
