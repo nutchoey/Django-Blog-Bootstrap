@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views import View
-from django.views.generic import ListView, DetailView, DeleteView
+from django.views.generic import ListView, DetailView, DeleteView, CreateView
 from .models import Article
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -42,6 +42,18 @@ class DeleteArticleView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         article = Article.objects.get(id=self.kwargs.get('pk'))
         return self.request.user.id == article.author.id
+    
+class CreateArticleView(LoginRequiredMixin, CreateView):
+    model = Article
+    fields = ['title', 'content']
+    template_name = 'blog/post_create.html'
+    success_url = reverse_lazy('bloglist')
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user  
+        return super().form_valid(form)
+
+    
 
   
     

@@ -5,16 +5,14 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
+        <div class="d-flex w-100 justify-content-between">
 
           <ul class="navbar-nav">
             {% if request.user.is_authenticated %}
               <li class="nav-item">
-                <form method="post" action="{% url 'logout' %}">
-                  {% csrf_token %}
-                  <button type="submit" class="btn btn-link nav-link" style="padding: 0; border: none;">Sign Out</button>
-                </form>
+                <a class="nav-link" href="{% url 'create_post' %}">Create Post</a>
               </li>
+
             {% else %}
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'login' %}">Sign In</a>
@@ -23,6 +21,14 @@
                 <a class="nav-link" href="{% url 'register' %}">Sign Up</a>
               </li>
             {% endif %}
+          </ul>
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item mt-2">
+              <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-link nav-link" style="padding: 0; border: none;">Sign Out</button>
+              </form>
+            </li>
           </ul>
         </div>
       </div>
