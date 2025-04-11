@@ -24,11 +24,6 @@
                 <div class="my-3">
                     {{ object.content|truncatewords_html:50|safe }}
                 </div>
-
-                <div class="my-3">
-                    {{ object.content|truncatewords_html:50|safe}}
-                </div>
-
                 <a href="{% url 'post_detail' object.id %}">Read more</a>
             </div>
         </div>

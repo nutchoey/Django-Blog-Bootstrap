@@ -17,7 +17,10 @@ class ArticleDetailView(DetailView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(ArticleDetailView, self).get_context_data(*args, **kwargs)
+        context['liked_by_user'] = False
         article = self.get_object()
+        if article.likes.filter(pk=self.request.user.id).exists():
+            context['liked_by_user'] = True
         return context
     
 class LikeArticle(View):
