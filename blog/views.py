@@ -3,4 +3,4 @@ from django.http import HttpResponse
 
 # Create your views here.
 def bloglist(request):
-    return HttpResponse("Tis is the blog list page")
+    return render(request, 'blog/index.html') 
