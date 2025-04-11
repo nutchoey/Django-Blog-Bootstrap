@@ -10,7 +10,7 @@ class Index(ListView):
     model = Article
     queryset = Article.objects.all().order_by('-date')
     template_name = 'blog/index.html'
-    paginate_by = 3
+    paginate_by = 2
 
 class ArticleDetailView(LoginRequiredMixin,DetailView):
     model = Article
