@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.views import View
 from django.views.generic import ListView, DetailView
 from .models import Article
 
@@ -18,3 +19,13 @@ class ArticleDetailView(DetailView):
         context = super(ArticleDetailView, self).get_context_data(*args, **kwargs)
         article = self.get_object()
         return context
+    
+class LikeArticle(View):
+    def post(self, request, pk):
+        article = Article.objects.get(id=pk)
+        if article.likes.filter(pk=self.request.user.id).exists():
+            article.likes.remove(request.user.id)
+        else:
+            article.likes.add(request.user.id)
+        article.save()
+        return redirect('post_detail', pk)
