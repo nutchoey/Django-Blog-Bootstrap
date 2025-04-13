@@ -19,6 +19,9 @@
                 <div class="pb-3">
                     <a style="color:red" href="{% url 'delete_post' object.pk %}">Delete this post</a>
                 </div>
+                <div class="pb-3">
+                    <a style="color:blue" href="{% url 'update_post' object.id %}">Edit Post</a>
+                </div>
             {% endif %}
 
             <div>
@@ -34,7 +37,7 @@
             {% else %}
                 <p>{{ object.likes.count }} people like this post</p>
             {% endif %}
-    
+
             {% if request.user.is_authenticated %}
                 {% if liked_by_user %}
                     <form method="POST" action="{% url 'like_article' object.id %}">

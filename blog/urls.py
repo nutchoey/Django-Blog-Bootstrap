@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import Index, ArticleDetailView, LikeArticle, DeleteArticleView, CreateArticleView
+from .views import Index, ArticleDetailView, LikeArticle, DeleteArticleView, CreateArticleView, UpdateArticleView
 
 urlpatterns = [
     path('tinymce/', include('tinymce.urls')),
@@ -8,5 +8,5 @@ urlpatterns = [
     path('like/<int:pk>/', LikeArticle.as_view(), name='like_article'),
     path('<int:pk>/delete', DeleteArticleView.as_view(), name='delete_post'),
     path('create/', CreateArticleView.as_view(), name='create_post'),
-
+    path('<int:pk>/update/', UpdateArticleView.as_view(), name='update_post'),
 ]
